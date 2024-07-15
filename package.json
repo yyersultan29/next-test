@@ -13,12 +13,12 @@
     "@types/js-cookie": "^3.0.6",
     "antd": "^5.17.4",
     "js-cookie": "^3.0.5",
-    "next": "14.2.3",
+    "next": "^14.2.3",
     "nookies": "^2.5.2",
     "plaiceholder": "^3.0.0",
     "re-ymaps": "^1.0.59",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "sharp": "^0.33.4"
   },
   "devDependencies": {

@@ -1,23 +1,10 @@
-import path from "path";
-import sharp from "sharp";
-import fs from "node:fs/promises";
-import fileSystem from "node:fs";
-
-import { getPlaiceholder } from "plaiceholder";
-
 // for local images
 export const getBase64 = async (imgPath: string) => {
   try {
-    const file = await fs.readFile(`public/${imgPath}`);
-    const { base64 } = await getPlaiceholder(file);
-    return base64;
+    return "Hello ";
   } catch (error: unknown) {
     //error handling
-    if (error instanceof Error) return error.message;
-    else if (error && typeof error === "object" && "message" in error)
-      return error.message as string;
-    else if (typeof error === "string") return error;
-    else return "Unexpected error!";
+    return "ssdd";
   }
 };
 
@@ -28,35 +15,23 @@ function bufferToBase64(buffer: Buffer): string {
 
 async function getFileBufferLocal(filepath: string) {
   // filepath is file addess exactly how is used in Image component (/ = public/)
-  const realFilepath = path.join(process.cwd(), "public", filepath);
-  return fs.readFile(realFilepath);
+  return "sd";
 }
 
 async function getFileBufferRemote(url: string) {
-  const response = await fetch(url);
-  return Buffer.from(await response.arrayBuffer());
+  return "";
 }
 
 function getFileBuffer(src: string) {
-  const isRemote = src.startsWith("http");
-  return isRemote ? getFileBufferRemote(src) : getFileBufferLocal(src);
+  return "";
 }
 
 // calls this function ,in the end
 export async function getPlaceholderImage(filepath: string) {
   try {
-    const originalBuffer = await getFileBuffer(filepath);
-    const resizedBuffer = await sharp(originalBuffer).resize(20).toBuffer();
-    return {
-      src: filepath,
-      placeholder: bufferToBase64(resizedBuffer),
-    };
+    return "";
   } catch {
-    return {
-      src: filepath,
-      placeholder:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOsa2yqBwAFCAICLICSyQAAAABJRU5ErkJggg==",
-    };
+    return "";
   }
 }
 
@@ -64,20 +39,9 @@ export async function getPlaceholderImage(filepath: string) {
 export async function getBase64Image(url: string) {
   try {
     // Fetch the image from the URL
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-
-    // Resize the image to a smaller size and convert it to a base64 string
-    const resizedBuffer = await sharp(buffer)
-      .resize(10) // Resize to a very small size for blur effect
-      .toBuffer();
-
-    const base64String = resizedBuffer.toString("base64");
-    return `data:image/jpeg;base64,${base64String}`;
+    return "";
   } catch (error) {
-    console.error("Error fetching or processing image:", error);
-    throw error;
+    return "";
   }
 }
 
@@ -105,48 +69,25 @@ const p1 = new Promise((res) => res("promise 1"));
 const p2 = new Promise((res) => res("promise 2"));
 
 export async function getImage(src: string) {
-  const buffer = await fetch(src).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
-  );
-
-  const {
-    metadata: { height, width },
-    ...plaiceholder
-  } = await getPlaiceholder(buffer, { size: 10 });
-
-  return {
-    ...plaiceholder,
-    img: { src, height, width },
-  };
+  return "";
 }
 
 // static image blurData
 export async function staticImgDataUrl(src: string) {
-  const buffer = await fs.readFile(`./public${src}`);
-  const { base64 } = await getPlaiceholder(buffer);
-  return base64;
+  return "";
 }
 
 // non lib solution
 
 export function clearBase64(filePath: string) {
-  const imageBuffer = fileSystem.readFileSync(`./public${filePath}`);
-  const base64Image = imageBuffer.toString("base64");
-  return `data:image/jpeg;base64,${base64Image}`;
+  return "";
 }
 
 export const generateBlurDataURL = async (imagePath: string) => {
   try {
-    const image = await sharp(imagePath)
-      .resize(10, 10) // Resize to a small thumbnail
-      .blur(5) // Apply blur
-      .toBuffer();
-
-    const base64Image = image.toString("base64");
-    const blurDataURL = `data:image/jpeg;base64,${base64Image}`;
-    return blurDataURL;
+    return "";
   } catch (error) {
-    console.error("Error generating blurDataURL:", error);
+    return "";
   }
 };
 
