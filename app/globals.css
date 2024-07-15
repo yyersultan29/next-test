@@ -31,3 +31,15 @@ body {
     text-wrap: balance;
   }
 }
+
+input[type="radio"]{
+  color: #27AE60;
+  background: #27AE60;
+  accent-color: #27AE60;
+
+}
+
+.input[type="radio"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px white;
+}
