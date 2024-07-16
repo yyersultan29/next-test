@@ -16,6 +16,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Print Secrect
+        run: echo ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
         run: npm run build
 
