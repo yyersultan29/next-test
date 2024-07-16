@@ -21,11 +21,14 @@ jobs:
       - name: Print Secrect
         run: echo ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
-        run: npm run build
+      - name: Build the Next.js project
+        run: npm run build && npm run export
+
+      - name: List build output for debugging
+        run: ls -la out
 
       - name: Deploy to GitHub page
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./out
