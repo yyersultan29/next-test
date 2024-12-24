@@ -15,6 +15,10 @@ export async function middleware(request: NextRequest) {
   }
   response.cookies.set("timer", "middleware", { maxAge: 5 * 24 * 60 * 60 });
   response.cookies.set("MAX-AGE-COOKIE", "some value", { maxAge: 5 });
+
+  if(!response.cookies.has("lang")) {
+    response.cookies.set("lang",'ru');
+  }
   return response;
 }
 

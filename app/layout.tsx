@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Script from "next/script";
+import { getLocale, getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,14 +15,18 @@ export const metadata: Metadata = {
 
 const API_KEY = "cc048d4a-1c6d-4d81-b20b-3768bc9a021b";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
+  const message = await getMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
+        <NextIntlClientProvider messages={message}>
         <header
           style={{
             padding: "20px",
@@ -35,6 +41,7 @@ export default function RootLayout({
           <Link href="/item">ITEM</Link>
         </header>
         <main style={{ padding: "20px" }}>{children}</main>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
